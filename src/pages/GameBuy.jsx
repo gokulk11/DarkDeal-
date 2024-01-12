@@ -6,32 +6,31 @@ import { FaWindows } from "react-icons/fa";
 const GameBuy = () => {
   return (
     <div className=" flex flex-col my-6">
-      <div className=" flex flex-col border mx-4  gap-2">
-        <h1 className=" text-3xl">Alan Wake 2</h1>
+      <div className=" flex flex-col mx-4  gap-2 border">
+        <h1 className=" text-3xl lg:text-4xl xl:text-5xl">Alan Wake 2</h1>
         <div className=" flex items-center gap-1">
           <div className="flex items-center ">
-            <FaStar className=" h-4 w-5" />
-            <FaStar className=" h-4 w-5" />
-            <FaStar className=" h-4 w-5" />
-            <FaStar className=" h-4 w-5" />
-            <FaStar className=" h-4 w-5" />
+            <FaStar className=" h-4 w-5 lg:h-5 lg:w-6" />
+            <FaStar className=" h-4 w-5 lg:h-5 lg:w-6" />
+            <FaStar className=" h-4 w-5 lg:h-5 lg:w-6" />
+            <FaStar className=" h-4 w-5 lg:h-5 lg:w-6" />
+            <FaStar className=" h-4 w-5 lg:h-5 lg:w-6" />
           </div>
           <div className=" flex items-center px-1 rounded-md  bg-slate-800 text-white">
-            <span className=" text-sm">4.8</span>
+            <span className=" text-sm lg:text-base">4.8</span>
           </div>
         </div>
       </div>
       <div className=" my-4 mx-6 border border-slate-100 md:hidden"></div>
-      <div className="md:flex md:justify-center md:mt-10 md:gap-4 mx-4 border">
-        
-        <div className="flex justify-center w-full md:w-fit mt-2  ">
+      <div className="md:flex md:justify-center md:mt-10 md:gap-4 mx-4">
+        <div className="flex justify-center h-fit w-full md:w-1/2 mt-2 lg:w-1/2 xl:w-8/12   ">
           <img
             src="https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-03-award-1920x1080-9e0de20157f9.jpg"
             alt="game"
-            className=" w-[337px] h-[189px] sm:w-[500px] sm:h-[300px] mx-auto"
+            className=" w-[337px] h-[189px] sm:w-[500px] sm:h-[300px] lg:w-[650px] lg:h-[400px] xl:w-[1100px] xl:h-[700px] mx-auto"
           />
         </div>
-        <div className=" flex flex-col md:border-l-2 md:border-slate-100">
+        <div className=" flex flex-col md:border-l-2 md:border-slate-100 lg:w-1/2 lg:px-6 xl:px-24 xl:w-4/12 xl:mt-[200px] ">
           <div className=" flex  items-center justify-center  gap-4 mt-4">
             <span className="flex items-center px-2 py-1 rounded-md bg-blue-500 font-semibold text-white text-[10px]">
               -20%
@@ -86,11 +85,11 @@ const GameBuy = () => {
           Choice Award.
         </p>
       </section>
-      <section className=" mx-6 mt-4">
+      <section className=" mx-6 mt-4 ">
         <h3 className=" font-semibold mb-2 text-lg ">
           Alan Wake 2 System Requirements
         </h3>
-        <div className="border p-3 flex justify-between font-semibold rounded-md ">
+        <div className="border p-3 flex justify-between font-semibold rounded-md md:pl-20 ">
           <div className=" py-2">
             <h4 className=" text-slate-500 mb-4">Minimum</h4>
             <div className="mb-2">
@@ -119,7 +118,7 @@ const GameBuy = () => {
             </div>
           </div>
 
-          <div className="py-2">
+          <div className="py-2 md:pr-20">
             <h4 className="text-slate-500  mb-4">Recommended</h4>
             <div>
               <h4 className="text-slate-500   pb-1">Windows OS</h4>
