@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
-import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 
@@ -69,7 +68,7 @@ const Header = () => {
         <div></div>
       )}
       <div className="flex bg-white shadow-lg pt-3 sm:pt-0">
-        <ul className="flex justify-center w-full text-xs gap-2 sm:gap-8 sm:text-[1rem] p-1 text-slate-700 ">
+        <ul className="flex justify-center w-full text-xs gap-6 sm:gap-8 sm:text-[1rem] p-1 text-slate-700 ">
           <li className=" font-semibold underline_text">PS4</li>
           <li className=" font-semibold underline_text">XBOX</li>
           <li className=" font-semibold underline_text">PS5</li>
