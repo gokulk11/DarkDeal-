@@ -31,7 +31,9 @@ const Header = () => {
           </form>
         </div>
         <div className=" flex items-center sm:gap-2 mr-2 ">
-          <ShoppingCartIcon className="h-6 w-6 hidden sm:block  text-slate-700" />
+          <Link to="/cart/1">
+            <ShoppingCartIcon className="h-6 w-6 hidden sm:block  text-slate-700" />
+          </Link>
           {!isLoggin ? (
             <div className="hidden sm:flex gap-2 px-2">
               <Link
