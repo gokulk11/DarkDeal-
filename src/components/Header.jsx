@@ -73,9 +73,11 @@ const Header = () => {
                       My Cart
                     </MenuItem>
                   </Link>
-                  <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
-                    My Orders
-                  </MenuItem>
+                  <Link to={"/orders"}>
+                    <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
+                      My Orders
+                    </MenuItem>
+                  </Link>
                   <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
                     Logout
                   </MenuItem>

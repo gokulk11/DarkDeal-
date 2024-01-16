@@ -9,6 +9,7 @@ import GameList from "./pages/GameList";
 import GameBuy from "./pages/GameBuy";
 import Cart from "./pages/Cart";
 import Account from "./pages/Account";
+import Orders from "./pages/Orders";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/game/:id" element={<GameBuy />} />
           <Route path="/cart/:id" element={<Cart />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer/>
