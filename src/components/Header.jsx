@@ -21,8 +21,8 @@ const Header = () => {
   return (
     <div className=" ">
       <div className="h-20 flex items-center justify-between pr-2">
-        <div className="flex flex-1 justify-between gap-2 items-center px-2">
-          <Link to="/">
+        <div className="flex border flex-1 justify-between gap-2 items-center px-2">
+          <Link to="/" className="border">
             <img
               src="../logo-no-background.svg"
               alt=""
@@ -33,7 +33,7 @@ const Header = () => {
             <input
               type="text"
               placeholder="Search..."
-              className={`rounded-full w-[150px] h-10 sm:w-[300px]  sm:block outline-none p-2 transition duration-300`}
+              className={`rounded-full w-[160px] h-10 sm:w-[300px]  sm:block outline-none p-2 transition duration-300`}
             />
 
             <button type="submit">
