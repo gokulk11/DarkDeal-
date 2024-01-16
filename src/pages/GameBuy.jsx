@@ -6,7 +6,7 @@ import { FaWindows } from "react-icons/fa";
 const GameBuy = () => {
   return (
     <div className=" flex flex-col my-6">
-      <div className=" flex flex-col mx-4  gap-2 border">
+      <div className=" flex flex-col mx-4  gap-2">
         <h1 className=" text-3xl lg:text-4xl xl:text-5xl">Alan Wake 2</h1>
         <div className=" flex items-center gap-1">
           <div className="flex items-center ">

@@ -26,6 +26,7 @@ import {
   InputGroup,
   InputLeftElement,
   Stack,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import PopularGames from "../components/PopularGames";
 import { Form } from "react-router-dom";
@@ -37,10 +38,10 @@ const GameList = () => {
     setIsFilterOpen(!isFilterOpen);
   };
   return (
-    <Container py="2rem" maxWidth={{ lg: "900px" }} border="1px solid red">
-      <Box border="1px solid ">
-        <Heading as="h1" size={{ base: "md" }}>
-          Popular Games
+    <Container py="2rem" maxWidth={{ lg: "900px", xl: "1200px" }}>
+      <Box>
+        <Heading as="h1" size={{ base: "md", lg:"lg" }}>
+          Popular Genres
         </Heading>
         <Swiper
           slidesPerView={2}
@@ -62,6 +63,10 @@ const GameList = () => {
             468: {
               slidesPerView: 3,
               spaceBetween: 30,
+            },
+            1280: {
+              slidesPerView: 5,
+              spaceBetween: 20,
             },
           }}>
           <SwiperSlide>
@@ -115,6 +120,19 @@ const GameList = () => {
           </Button>
         </Box>
       </Flex>
+      <SimpleGrid
+        columns={{ base: 2, sm: 3, md: 3, lg: 4 }}
+        my="1rem"
+        spacing={5}>
+        <Games />
+        <Games />
+        <Games />
+        <Games />
+        <Games />
+        <Games />
+      </SimpleGrid>
+
+      {/* Filter Option Starts */}
       <Modal isOpen={isFilterOpen} onClose={handleFilterClick}>
         <ModalOverlay />
         <ModalContent>
@@ -142,11 +160,9 @@ const GameList = () => {
               </Box>
             </form>
           </ModalBody>
-          <ModalFooter>
-            {/* Add buttons or additional content for the modal footer */}
-          </ModalFooter>
         </ModalContent>
       </Modal>
+      {/* Filter Option Ends */}
     </Container>
   );
 };

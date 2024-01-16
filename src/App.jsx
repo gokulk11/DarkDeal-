@@ -19,6 +19,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/games" element={<GameList />} />
           <Route path="/game/:id" element={<GameBuy />} />
+          <Route path="/cart/:id" element={<GameBuy />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer/>
