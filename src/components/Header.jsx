@@ -21,12 +21,12 @@ const Header = () => {
   return (
     <div className=" ">
       <div className="h-20 flex items-center justify-between pr-2">
-        <div className="flex border flex-1 justify-between gap-2 items-center px-2">
-          <Link to="/" className="border">
+        <div className="flex flex-1 justify-between gap-2 items-center px-2">
+          <Link to="/" className="flex ">
             <img
               src="../logo-no-background.svg"
               alt=""
-              className="h-16 w-16 md:h-20 md:w-20 lg:w-24 lg:h-24"
+              className="h-16 pb-2 w-16 md:h-20 md:w-20 lg:w-24 lg:h-24"
             />
           </Link>
           <form className="flex items-center gap-2 border  rounded-full bg-white">
