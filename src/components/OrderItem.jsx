@@ -14,14 +14,14 @@ const OrderItem = () => {
   return (
     <Card my={{base:"1rem", lg:"1.5rem"}}>
       <CardBody display={"flex"} gap={"10px"} justifyContent="space-between">
-        <Box border={"1px solid"}>
+        <Box>
           <Image
             w={16}
             h={16}
             src="https://rukminim2.flixcart.com/image/850/1000/khavrm80-0/code-in-the-box-game/l/h/h/pc-gta-v-and-indian-army-pc-game-no-cd-dvd-premium-edition-original-imafxc88nepkekhh.jpeg?q=90&crop=false"
           />
         </Box>
-        <Box border={"1px solid"}>
+        <Box>
           <Heading
             as={"h3"}
             size={{ base: "sm" }}
@@ -36,7 +36,7 @@ const OrderItem = () => {
             &#8377;1170.00
           </Text>
         </Box>
-        <Box border={"1px solid"}>
+        <Box>
             <Text>Purchased on Aug 20,2022</Text>
         </Box>
       </CardBody>
