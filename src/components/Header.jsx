@@ -33,7 +33,7 @@ const Header = () => {
             <input
               type="text"
               placeholder="Search..."
-              className={`rounded-full h-10 sm:w-[300px]  sm:block outline-none p-2 transition duration-300`}
+              className={`rounded-full w-[150px] h-10 sm:w-[300px]  sm:block outline-none p-2 transition duration-300`}
             />
 
             <button type="submit">
