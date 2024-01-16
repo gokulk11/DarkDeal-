@@ -3,9 +3,20 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import "react-dropdown/style.css";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Button,
+} from "@chakra-ui/react";
 
 const Header = () => {
-  const [isLoggin, setIsLoggin] = useState(false);
+  const [isLoggin, setIsLoggin] = useState(true);
 
   return (
     <div className=" ">
@@ -32,7 +43,7 @@ const Header = () => {
         </div>
         <div className=" flex items-center sm:gap-2 mr-2 ">
           <Link to="/cart/1">
-            <ShoppingCartIcon className="h-6 w-6 hidden sm:block  text-slate-700" />
+            <ShoppingCartIcon className="h-6 w-6 hidden  sm:block  text-slate-700" />
           </Link>
           {!isLoggin ? (
             <div className="hidden sm:flex gap-2 px-2">
@@ -48,8 +59,21 @@ const Header = () => {
               </Link>
             </div>
           ) : (
-            <Link className="flex items-center justify-center rounded-full w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  bg-slate-200 px-2">
-              GB
+            <Link className=" z-20 flex items-center justify-center rounded-full w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  bg-slate-200 px-2">
+              <Menu>
+                <MenuButton>
+                  GB
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Profile</MenuItem>
+                  <MenuItem>
+                    <Link to={"/cart/1"}>My Cart</Link>
+                  </MenuItem>
+                  <MenuItem>LogOut</MenuItem>
+                  <MenuItem>My Orders</MenuItem>
+                  <MenuItem>Contact Us?</MenuItem>
+                </MenuList>
+              </Menu>
             </Link>
           )}
         </div>
