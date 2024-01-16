@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import GameList from "./pages/GameList";
 import GameBuy from "./pages/GameBuy";
 import Cart from "./pages/Cart";
+import Account from "./pages/Account";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/games" element={<GameList />} />
           <Route path="/game/:id" element={<GameBuy />} />
           <Route path="/cart/:id" element={<Cart />} />
+          <Route path="/account" element={<Account />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer/>
