@@ -61,17 +61,24 @@ const Header = () => {
           ) : (
             <Link className=" z-20 flex items-center justify-center rounded-full w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  bg-slate-200 px-2">
               <Menu>
-                <MenuButton>
-                  GB
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>
-                    <Link to={"/cart/1"}>My Cart</Link>
+                <MenuButton>GB</MenuButton>
+                <MenuList bgColor={"gray.500"} color={"white"}>
+                  <Link to={"/account"}>
+                    <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
+                      Account
+                    </MenuItem>
+                  </Link>
+                  <Link to={"/cart/1"}>
+                    <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
+                      My Cart
+                    </MenuItem>
+                  </Link>
+                  <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
+                    My Orders
                   </MenuItem>
-                  <MenuItem>LogOut</MenuItem>
-                  <MenuItem>My Orders</MenuItem>
-                  <MenuItem>Contact Us?</MenuItem>
+                  <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
+                    Logout
+                  </MenuItem>
                 </MenuList>
               </Menu>
             </Link>
