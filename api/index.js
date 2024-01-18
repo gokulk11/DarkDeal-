@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
 const app = express();
+
 const port = 3000;
 
 app.use(express.json());
@@ -37,5 +38,7 @@ app.use((err, req, res, next) => {
     message,
   });
 });
+
+
 
 //JB6Z2Ml0eHcNaJ8i

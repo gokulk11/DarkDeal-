@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 const Header = () => {
-  const [isLoggin, setIsLoggin] = useState(true);
+  const [isLoggin, setIsLoggin] = useState(false);
 
   return (
     <div className=" ">
