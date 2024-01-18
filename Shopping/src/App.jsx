@@ -10,6 +10,7 @@ import GameBuy from "./pages/GameBuy";
 import Cart from "./pages/Cart";
 import Account from "./pages/Account";
 import Orders from "./pages/Orders";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -22,12 +23,14 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/games" element={<GameList />} />
           <Route path="/game/:id" element={<GameBuy />} />
-          <Route path="/cart/:id" element={<Cart />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/orders" element={<Orders />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/cart/:id" element={<Cart />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/orders" element={<Orders />} />
+          </Route>
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </div>
   );

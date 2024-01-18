@@ -2,21 +2,11 @@ import React, { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
-import "react-dropdown/style.css";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  Button,
-} from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { Menu, MenuButton, MenuList, MenuItem, Button, MenuDivider } from "@chakra-ui/react";
 
 const Header = () => {
-  const [isLoggin, setIsLoggin] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   return (
     <div className=" ">
@@ -45,7 +35,7 @@ const Header = () => {
           <Link to="/cart/1">
             <ShoppingCartIcon className="h-6 w-6 hidden  sm:block  text-slate-700" />
           </Link>
-          {!isLoggin ? (
+          {!currentUser ? (
             <div className="hidden sm:flex gap-2 px-2">
               <Link
                 to="/signup"
@@ -61,12 +51,26 @@ const Header = () => {
           ) : (
             <Link className=" z-20 flex items-center justify-center rounded-full w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  bg-slate-200 px-2">
               <Menu>
-                <MenuButton>GB</MenuButton>
+                <MenuButton>
+                  {currentUser.avatar ? (
+                    <img
+                      src={currentUser.avatar}
+                      className="rounded-full"
+                      alt="avatar"
+                    />
+                  ) : (
+                    <img
+                      src="https://cdn.vectorstock.com/i/preview-1x/08/19/gray-photo-placeholder-icon-design-ui-vector-35850819.jpg"
+                      className="rounded-full"
+                      alt="avatar"
+                    />
+                  )}
+                </MenuButton>
                 <MenuList bgColor={"gray.500"} color={"white"}>
                   <Link to={"/account"}>
                     <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
                       Account
-                    </MenuItem>
+                    </MenuItem><MenuDivider/>
                   </Link>
                   <Link to={"/cart/1"}>
                     <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
@@ -87,7 +91,7 @@ const Header = () => {
           )}
         </div>
       </div>
-      {!isLoggin ? (
+      {!currentUser ? (
         <div className=" w-full flex sm:hidden justify-center gap-2">
           <Link
             to="/signup"
