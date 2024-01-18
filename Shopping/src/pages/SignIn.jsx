@@ -1,8 +1,57 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
 import OAuth from "../components/OAuth";
 
 const SignIn = () => {
+  const [formData, setFormData] = useState({});
+  const { loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  console.log(formData);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(signInStart());
+      const res = await fetch("api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log("Response Data:", data);
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
+        return;
+      }
+      dispatch(signInSuccess(data));
+      navigate("/");
+    } catch (error) {
+      dispatch(signInFailure(error.message));
+    }
+  };
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900 mt-4">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -16,7 +65,7 @@ const SignIn = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div>
                 <label
                   htmlFor="email"
@@ -29,7 +78,7 @@ const SignIn = () => {
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
-                  required=""
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -44,7 +93,7 @@ const SignIn = () => {
                   id="password"
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
+                  onChange={handleChange}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -73,9 +122,10 @@ const SignIn = () => {
                 </Link>
               </div>
               <button
+                disabled={loading}
                 type="submit"
                 className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                Sign in
+                {loading ? "Loading..." : "Sign in"}
               </button>
               <OAuth />
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
@@ -88,6 +138,13 @@ const SignIn = () => {
               </p>
             </form>
           </div>
+          {error && (
+            <Alert status='error'>
+            <AlertIcon />
+            <AlertTitle>{error}!</AlertTitle>
+            <AlertDescription>Please check the credentials</AlertDescription>
+          </Alert>
+          )}
         </div>
       </div>
     </section>

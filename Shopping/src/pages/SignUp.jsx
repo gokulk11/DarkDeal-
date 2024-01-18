@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { useToast } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const toast = useToast();
 
   // handle change starts here
   const handleChange = (e) => {
@@ -36,6 +44,13 @@ const SignUp = () => {
       }
       setLoading(false);
       setError(null);
+      toast({
+        title: "Account Created!",
+        description: "You can now sign in with your new account.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
       navigate("/signin");
     } catch (error) {
       setLoading(false);
@@ -121,7 +136,13 @@ const SignUp = () => {
               </p>
             </form>
           </div>
-          {error && <p className=" text-red-700">{error}</p>}
+          {error && (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertTitle>{error}!</AlertTitle>
+              <AlertDescription>Please check the credentials</AlertDescription>
+            </Alert>
+          )}
         </div>
       </div>
     </section>
