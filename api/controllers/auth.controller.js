@@ -75,8 +75,19 @@ const google = async (req, res, next) => {
   }
 };
 
+
+const signOut = (req, res, next) => {
+  try {
+      res.clearCookie('auth_token');
+      res.status(200).json('User has been signed out!');
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
   google,
+  signOut,
 };

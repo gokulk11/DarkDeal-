@@ -9,9 +9,23 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
+
+
 
 const Account = () => {
+
+  const { currentUser, error, loading } = useSelector((state) => state.user);
+
   return (
     <Container h={"100vh"} my={{ base: "1rem", lg: "2rem" }}>
       <Flex flexDir={"column"}>
@@ -28,7 +42,7 @@ const Account = () => {
             Account Information
           </Heading>
           <Text mt={".5rem"} fontSize={{ base: "small" }} color={"gray.500"}>
-            ID:1d952f905ad446e39775dad2d9926df9
+            ID:{currentUser._id}
           </Text>
         </Box>
         <Box display={"flex"} my={{ base: "1rem" }} w={"100%"}>
@@ -39,15 +53,15 @@ const Account = () => {
               w={"50px"}
               h={"50px"}
               borderRadius={"25px"}
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              src={currentUser.avatar}
             />
             <Box my={{ base: ".5rem" }}>
               <FormLabel color={"gray.500"}>Username</FormLabel>
-              <Input type="text" placeholder="username" size="lg" />
+              <Input type="text" placeholder="username" defaultValue={currentUser.username} size="lg" />
             </Box>
             <Box my={{ base: ".5rem" }}>
               <FormLabel color={"gray.500"}>Email</FormLabel>
-              <Input type="email" placeholder="Email" size="lg" />
+              <Input type="email" placeholder="Email" defaultValue={currentUser.email} size="lg" />
             </Box>
             <Box my={{ base: ".5rem" }}>
               <FormLabel color={"gray.500"}>Password</FormLabel>

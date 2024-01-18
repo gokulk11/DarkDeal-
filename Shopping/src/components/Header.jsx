@@ -2,11 +2,40 @@ import React, { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Menu, MenuButton, MenuList, MenuItem, Button, MenuDivider } from "@chakra-ui/react";
+import { useSelector,useDispatch } from "react-redux";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button,
+  MenuDivider,
+} from "@chakra-ui/react";
+import {
+  signOutUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
+} from "../redux/user/userSlice";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleSignOut = async () => {
+    console.log("hello");
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
+    }
+  };
 
   return (
     <div className=" ">
@@ -70,7 +99,8 @@ const Header = () => {
                   <Link to={"/account"}>
                     <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
                       Account
-                    </MenuItem><MenuDivider/>
+                    </MenuItem>
+                    <MenuDivider />
                   </Link>
                   <Link to={"/cart/1"}>
                     <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
@@ -82,7 +112,7 @@ const Header = () => {
                       My Orders
                     </MenuItem>
                   </Link>
-                  <MenuItem bgColor={"gray.500"} _hover={{ bg: "black" }}>
+                  <MenuItem onClick={handleSignOut} bgColor={"gray.500"} _hover={{ bg: "black" }}>
                     Logout
                   </MenuItem>
                 </MenuList>
