@@ -11,6 +11,7 @@ import {
   Input,
   Spinner,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import {
   getDownloadURL,
@@ -23,7 +24,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { updateUserFailure, updateUserStart, updateUserSuccess } from "../redux/user/userSlice";
+import {
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
+} from "../redux/user/userSlice";
 
 const Account = () => {
   const fileRef = useRef(null);
@@ -31,14 +36,17 @@ const Account = () => {
   const { currentUser, error, loading } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
   const [filePercentage, setFilePercentage] = useState(0);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+  const toast = useToast();
 
-  console.log(formData);
+  console.log(updateSuccess);
 
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
+      setUpdateSuccess(false)
     }
   }, [file]);
 
@@ -84,8 +92,15 @@ const Account = () => {
         dispatch(updateUserFailure(data));
         return;
       }
+      toast({
+        title: "Account Updated!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
+    
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
@@ -136,8 +151,10 @@ const Account = () => {
               </Alert>
             ) : filePercentage > 0 && filePercentage < 100 ? (
               <Spinner alignSelf={"center"} />
-            ) : filePercentage === 100 ? (
-              <Alert status="success">
+            ) : filePercentage === 100 && updateSuccess === false ? (
+              
+              <Alert
+                status="success">
                 <AlertIcon />
                 Image uploaded successfully
               </Alert>
@@ -181,8 +198,8 @@ const Account = () => {
               flexDir={"column"}
               gap={".5rem"}
               my={{ base: ".5rem" }}>
-              <Button colorScheme="blue" type="submit">
-                SAVE CHANGES
+              <Button disabled={loading} colorScheme="blue" type="submit">
+                {loading ? "LOADING..." : "SAVE CHANGES"}
               </Button>
               <Button colorScheme="red" type="button">
                 DELETE ACCOUNT
