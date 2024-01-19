@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const errorHandler = require("../utils/error.js");
 const path = require("path");
-const { resolveTxt } = require("dns/promises");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 const signUp = async (req, res, next) => {

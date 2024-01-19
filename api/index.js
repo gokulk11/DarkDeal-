@@ -1,14 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const app = express();
 
 const port = 3000;
 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
@@ -27,8 +28,6 @@ main()
 
 async function main() {
   await mongoose.connect("mongodb://localhost:27017/darkdeal");
-
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
 
 app.use((err, req, res, next) => {
@@ -40,7 +39,5 @@ app.use((err, req, res, next) => {
     message,
   });
 });
-
-
 
 //JB6Z2Ml0eHcNaJ8i
