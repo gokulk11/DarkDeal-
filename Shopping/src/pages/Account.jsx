@@ -12,6 +12,13 @@ import {
   Spinner,
   Text,
   useToast,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   getDownloadURL,
@@ -28,6 +35,9 @@ import {
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
 } from "../redux/user/userSlice";
 
 const Account = () => {
@@ -41,12 +51,13 @@ const Account = () => {
   const [formData, setFormData] = useState({});
   const toast = useToast();
 
-  console.log(updateSuccess);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
 
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
-      setUpdateSuccess(false)
+      setUpdateSuccess(false);
     }
   }, [file]);
 
@@ -100,9 +111,34 @@ const Account = () => {
       });
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
-    
     } catch (error) {
       dispatch(updateUserFailure(error.message));
+    }
+  };
+
+  const handleDelete = () => {
+    console.log("here");
+    onOpen();
+  };
+
+  const confirmDelete = async () => {
+    console.log("confirmDelete");
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        onClose();
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+      onClose();
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+      onClose();
     }
   };
 
@@ -152,9 +188,7 @@ const Account = () => {
             ) : filePercentage > 0 && filePercentage < 100 ? (
               <Spinner alignSelf={"center"} />
             ) : filePercentage === 100 && updateSuccess === false ? (
-              
-              <Alert
-                status="success">
+              <Alert status="success">
                 <AlertIcon />
                 Image uploaded successfully
               </Alert>
@@ -201,12 +235,39 @@ const Account = () => {
               <Button disabled={loading} colorScheme="blue" type="submit">
                 {loading ? "LOADING..." : "SAVE CHANGES"}
               </Button>
-              <Button colorScheme="red" type="button">
+              <Button onClick={handleDelete} colorScheme="red" type="button">
                 DELETE ACCOUNT
               </Button>
             </Box>
           </form>
         </Box>
+        {/* Delete Account Confirmation Dialog */}
+        <AlertDialog
+          isOpen={isOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}>
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Delete Account
+              </AlertDialogHeader>
+
+              <AlertDialogBody>
+                Are you sure you want to delete your account? This action is
+                irreversible.
+              </AlertDialogBody>
+
+              <AlertDialogFooter>
+                <Button ref={cancelRef} onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button colorScheme="red" onClick={confirmDelete} ml={3}>
+                  Delete
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
       </Flex>
     </Container>
   );
