@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
 import { HamburgerIcon, PhoneIcon, SearchIcon } from "@chakra-ui/icons";
+import gamesData from "../gamesData.js";
 import {
   Box,
   Button,
@@ -37,10 +38,50 @@ const GameList = () => {
   const handleFilterClick = () => {
     setIsFilterOpen(!isFilterOpen);
   };
+
+
+  const ps4Details = gamesData.data.games.map(game => {
+    const ps4Platform = game.platforms.find(platform => platform.name === "PS5");
+  
+    if (ps4Platform) {
+      const { name, price, discountPrice, offer, imageUrls } = ps4Platform;
+      return {
+        title: game.title,
+        edition: game.edition,
+        platform: {
+          name,
+          price,
+          discountPrice,
+          offer,
+          imageUrls,
+        },
+      };
+    }
+  
+    return null; // Return null if the game does not have a PlayStation platform
+  }).filter(ps4Details => ps4Details !== null);
+
+  console.log(ps4Details);
+  
+  const psGames = ps4Details.map(game =>{
+      return(
+        <Games
+         title={game.title}
+         edition={game.edition}
+         image={game.platform.imageUrls[0]}
+         price={game.platform.price}
+         offer={game.platform.offer}
+         discountPrice={game.platform.discountPrice}
+         />
+      )
+  })
+  
+
+
   return (
     <Container py="2rem" maxWidth={{ lg: "900px", xl: "1200px" }}>
       <Box>
-        <Heading as="h1" size={{ base: "md", lg:"lg" }}>
+        <Heading as="h1" size={{ base: "md", lg: "lg" }}>
           Popular Genres
         </Heading>
         <Swiper
@@ -124,12 +165,7 @@ const GameList = () => {
         columns={{ base: 2, sm: 3, md: 3, lg: 4 }}
         my="1rem"
         spacing={5}>
-        <Games />
-        <Games />
-        <Games />
-        <Games />
-        <Games />
-        <Games />
+       {psGames}
       </SimpleGrid>
 
       {/* Filter Option Starts */}
