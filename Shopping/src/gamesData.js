@@ -3,6 +3,7 @@ export default {
   data: {
     games: [
       {
+        id:1,
         title: "Grand Theft Auto V",
         dev: "Rockstar Games",
         publisher: "Rockstar Games",
@@ -55,6 +56,7 @@ export default {
         ],
       },
       {
+        id:2,
         title: "Alan Wake 2",
         dev: "Remedy Entertainment",
         publisher: "Epic Games Publishing",
@@ -107,6 +109,7 @@ export default {
         ],
       },
       {
+        id:3,
         title: "Alan Wake 2",
         dev: "Remedy Entertainment",
         publisher: "Epic Games Publishing",
@@ -159,6 +162,7 @@ export default {
         ],
       },
       {
+        id:4,
         title: "Alan Wake 2",
         dev: "Remedy Entertainment",
         publisher: "Epic Games Publishing",
@@ -211,6 +215,7 @@ export default {
         ],
       },
       {
+        id:5,
         title: "Alan Wake 2",
         dev: "Remedy Entertainment",
         publisher: "Epic Games Publishing",

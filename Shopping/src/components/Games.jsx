@@ -1,11 +1,28 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Tooltip } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { addItemToCart } from "../redux/cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Games = (props) => {
+  const [gameData, setGameData] = useState({
+    id:props.id,
+    title: props.title,
+    image:props.image,
+    paltform:props.platformName,
+  });
+
+  const { itemCount, currentCart } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addItemToCart(gameData));
+  };
+  console.log(itemCount, currentCart);
+
   return (
-    <Link to="/game/2" className=" cursor-pointer">
+    <Link to="" className=" cursor-pointer">
       <div>
         <div className="bg-slate-100 w-fit rounded-lg">
           <div className="relative group">
@@ -14,7 +31,7 @@ const Games = (props) => {
               src={props.image}
               alt="game"
             />
-            <Link to="/game/1" className=" cursor-pointer">
+            <Link to="" className=" cursor-pointer" onClick={handleAddToCart}>
               <Tooltip label="Add to Cart">
                 <div className="absolute top-3 right-4 invisible group-hover:visible transition-visible duration-300 ease-in-out ">
                   <svg
@@ -54,7 +71,9 @@ const Games = (props) => {
                   &#8377;{props.price}
                 </p>
               )}
-              <p className="font-semibold text-slate-700">&#8377;{props.discountPrice}</p>
+              <p className="font-semibold text-slate-700">
+                &#8377;{props.discountPrice}
+              </p>
             </div>
           </div>
         </div>

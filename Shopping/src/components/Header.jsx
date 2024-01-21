@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
+import { addItemToCart } from "../redux/cart/cartSlice";
 import {
   Menu,
   MenuButton,
@@ -19,6 +20,7 @@ import {
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const { itemCount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const handleSignOut = async () => {
@@ -37,8 +39,10 @@ const Header = () => {
     }
   };
 
+  console.log(itemCount);
+  
   return (
-    <div className=" ">
+    <div className=" sticky top-0 z-10 bg-white">
       <div className="h-20 flex items-center justify-between pr-2">
         <div className="flex flex-1 justify-between gap-2 items-center px-2">
           <Link to="/" className="flex ">
@@ -61,8 +65,9 @@ const Header = () => {
           </form>
         </div>
         <div className=" flex items-center sm:gap-2 mr-2 ">
-          <Link to="/cart/1">
-            <ShoppingCartIcon className="h-6 w-6 hidden  sm:block  text-slate-700" />
+          <Link to="/cart/1" className=" h-9 flex items-center">
+            <ShoppingCartIcon className=" h-6 w-6 hidden  sm:block  text-slate-700" />
+             <span className="hidden sm:block self-start text-[10px] bg-rose-500 p-[2px] rounded-full text-white font-semibold">{itemCount}</span>
           </Link>
           {!currentUser ? (
             <div className="hidden sm:flex gap-2 px-2">
