@@ -16,21 +16,36 @@ import {
 import React from "react";
 import { IoLogoWindows } from "react-icons/io";
 import CartItem from "../components/CartItem";
+import { useDispatch, useSelector } from "react-redux";
 
 const Cart = () => {
+  const { currentCart } = useSelector((state) => state.cart);
+
+  const cartGames = currentCart.map((game) => (
+    <CartItem
+      id={game.id}
+      title={game.title}
+      edition={game.edition}
+      offer={game.offer}
+      price={game.price}
+      platform={game.platform}
+      discountPrice={game.discountPrice}
+      count={game.count}
+      totalPrice={game.totalPrice}
+      image={game.image}
+    />
+  ));
+
   return (
-    <Container my={"2rem"} h={"100%"} maxWidth={{ lg: "900px",xl:"1200px" }}>
+    <Container my={"2rem"} h={"100vh"} maxWidth={{ lg: "900px", xl: "1200px" }}>
       <Heading as={"h1"}>My Cart</Heading>
-      <Flex my={"1rem"} flexDirection={{ base: "column", lg: "row" }} justifyContent={{lg:"space-between"}}>
+      <Flex
+        my={"1rem"}
+        flexDirection={{ base: "column", lg: "row" }}
+        justifyContent={{ lg: "space-between" }}>
         {/* Card start here */}
-        <Box width={{lg:"50%"}} h={"fit-content"}>
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
+        <Box width={{ lg: "50%" }} h={"fit-content"}>
+          {cartGames}
         </Box>
         {/* Cards End Here */}
         <Box my={"1rem"}>
