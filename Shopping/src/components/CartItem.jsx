@@ -18,6 +18,7 @@ import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, decrementItem, incrementItem } from "../redux/cart/cartSlice";
 
+
 const CartItem = ({
   id,
   title,
@@ -34,6 +35,8 @@ const CartItem = ({
   const cartItem = useSelector((state) =>
     state.cart.currentCart.find((item) => item.id === id)
   );
+
+ 
 
   const handleRemoveCart = () => {
     dispatch(removeFromCart(id));
@@ -78,11 +81,11 @@ const CartItem = ({
                   fontWeight={"semibold"}
                   textDecoration={"line-through"}
                   color={"gray.500"}>
-                  &#8377;{discountPrice}
+                  &#8377;{price}
                 </Text>
               </>
             )}
-            <Text fontWeight={"semibold"}>&#8377;{price}</Text>
+            <Text fontWeight={"semibold"}>&#8377;{discountPrice}</Text>
           </Box>
         </Box>
       </CardBody>

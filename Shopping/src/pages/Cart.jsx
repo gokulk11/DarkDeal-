@@ -19,8 +19,8 @@ import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 
 const Cart = () => {
-  const { currentCart } = useSelector((state) => state.cart);
-
+  const { currentCart, summaryPrice } = useSelector((state) => state.cart);
+ console.log(summaryPrice);
   const cartGames = currentCart.map((game) => (
     <CartItem
       id={game.id}
@@ -55,7 +55,7 @@ const Cart = () => {
           <Box fontWeight={"semibold"}>
             <Box display={"flex"} justifyContent={"space-between"} mb={"5px"}>
               <Text>Price</Text>
-              <Text>&#8377;830.00</Text>
+              <Text>&#8377;{summaryPrice}</Text>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb={"5px"}>
               <Text>Sale Discount</Text>
@@ -65,7 +65,7 @@ const Cart = () => {
 
             <Box display={"flex"} justifyContent={"space-between"} my={"10px"}>
               <Text>Subtotal</Text>
-              <Text>&#8377;1170.00</Text>
+              <Text>&#8377;{summaryPrice}</Text>
             </Box>
             <Button colorScheme="blue" my={"10px"} width={"100%"}>
               CHECK OUT
