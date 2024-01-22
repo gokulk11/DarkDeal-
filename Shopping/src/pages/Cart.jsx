@@ -55,17 +55,17 @@ const Cart = () => {
           <Box fontWeight={"semibold"}>
             <Box display={"flex"} justifyContent={"space-between"} mb={"5px"}>
               <Text>Price</Text>
-              <Text>&#8377;{summaryPrice}</Text>
+              <Text>&#8377;{summaryPrice}.00</Text>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb={"5px"}>
               <Text>Sale Discount</Text>
-              <Text>&#8377;2000.00</Text>
+              <Text>&#8377;0.00</Text>
             </Box>
             <Divider />
 
             <Box display={"flex"} justifyContent={"space-between"} my={"10px"}>
               <Text>Subtotal</Text>
-              <Text>&#8377;{summaryPrice}</Text>
+              <Text>&#8377;{summaryPrice}.00</Text>
             </Box>
             <Button colorScheme="blue" my={"10px"} width={"100%"}>
               CHECK OUT

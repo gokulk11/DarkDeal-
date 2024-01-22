@@ -56,10 +56,8 @@ const cartSlice = createSlice({
         (item) => item.id === itemIdToRemove
         )
 
-        state.summaryPrice -=
-        existingItem.offer === false
-          ? existingItem.price
-          : existingItem.discountPrice;
+        state.summaryPrice -= existingItem.totalPrice
+
       // Remove the item from currentCart
       state.currentCart = state.currentCart.filter(
         (item) => item.id !== itemIdToRemove
