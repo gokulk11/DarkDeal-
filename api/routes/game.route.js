@@ -1,5 +1,5 @@
 const express = require("express");
-const { addGame } = require("../controllers/game.controller")
+const { addGame, getGame } = require("../controllers/game.controller")
 const router = express.Router();
 
 router.get("/test", (req, res) => {
@@ -7,6 +7,7 @@ router.get("/test", (req, res) => {
 });
 
 router.post('/addgame',addGame);
+router.get('/get',getGame);
 
 
 module.exports = router;

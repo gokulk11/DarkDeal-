@@ -54,19 +54,17 @@ const cartSlice = createSlice({
 
       const existingItem = state.currentCart.find(
         (item) => item.id === itemIdToRemove
-        )
+      );
 
-        state.summaryPrice -= existingItem.totalPrice
+      state.summaryPrice -= existingItem.totalPrice;
 
       // Remove the item from currentCart
       state.currentCart = state.currentCart.filter(
         (item) => item.id !== itemIdToRemove
       );
 
-     
       // Update the total item count
       state.itemCount -= 1;
-      
     },
     decrementItem: (state, action) => {
       const itemIdToDecrement = action.payload;
@@ -79,9 +77,9 @@ const cartSlice = createSlice({
         existingItem.count -= 1;
         state.itemCount -= 1;
         state.summaryPrice -=
-        existingItem.offer === false
-          ? existingItem.price
-          : existingItem.discountPrice;
+          existingItem.offer === false
+            ? existingItem.price
+            : existingItem.discountPrice;
         //item remove from the cart
         state.currentCart = state.currentCart.filter(
           (item) => item.id !== itemIdToDecrement
@@ -96,10 +94,10 @@ const cartSlice = createSlice({
             ? existingItem.price
             : existingItem.discountPrice;
 
-            state.summaryPrice -=
-            existingItem.offer === false
-              ? existingItem.price
-              : existingItem.discountPrice;
+        state.summaryPrice -=
+          existingItem.offer === false
+            ? existingItem.price
+            : existingItem.discountPrice;
       }
     },
     incrementItem: (state, action) => {
@@ -114,10 +112,10 @@ const cartSlice = createSlice({
             ? existingItem.price
             : existingItem.discountPrice;
 
-            state.summaryPrice +=
-            existingItem.offer === false
-              ? existingItem.price
-              : existingItem.discountPrice;
+        state.summaryPrice +=
+          existingItem.offer === false
+            ? existingItem.price
+            : existingItem.discountPrice;
       }
     },
   },

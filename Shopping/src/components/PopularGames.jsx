@@ -2,7 +2,7 @@ const PopularGames = () => {
   return (
     <div className=" bg-slate-100 w-fit p-3 my-4 rounded-md">
       <img
-        src="https://cdn1.epicgames.com/offer/c4763f236d08423eb47b4c3008779c84/EGS_AlanWake2DeluxeEdition_RemedyEntertainment_Editions_S2_1200x1600-db032e8c839da2be59801023a4cdf083?h=480&quality=medium&resize=1&w=360"
+        src="https://cdn1.epicgames.com/spt-assets/f4e705da3ed4475d895f64a5ae26eb4b/monke-island-rise-of-the-beast-1c8ax.png?h=480&quality=medium&resize=1&w=360"
         alt="Games"
         className=" w-[150px] h-[130px] xs:w-[100px] xs:h-[100px] sm:w-[200px] sm:h-[125px] lg:w-[200px] lg:h-[125px] xl:w-[300px] xl:h-[150px] rounded-md"
       />

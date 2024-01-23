@@ -4,6 +4,7 @@ require("dotenv").config();
 const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
 const gameRouter = require("./routes/game.route.js");
+const categoryRouter = require("./routes/category.route.js")
 const cookieParser = require("cookie-parser");
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/game", gameRouter);
+app.use("/api/category", categoryRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
