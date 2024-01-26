@@ -15,7 +15,7 @@ const cartSlice = createSlice({
 
       // Ensure currentCart is an array
       if (!Array.isArray(state.currentCart)) {
-        state.currentCart = [];
+        state.currentCart = [...state.currentCart, newItem];
       }
 
       // Check if the item already exists in the cart

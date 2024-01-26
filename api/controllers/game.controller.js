@@ -10,6 +10,18 @@ const addGame = async (req, res, next) => {
   }
 };
 
+const getps5games = async (req, res, next) => {
+    try {
+      
+      const ps5Games = await Game.find({"platforms.name":"PS5"},
+      { "platforms.$": 1, title: 1, dev: 1, genre: 1, edition: 1, description: 1, releaseDate: 1, _id: 1,categoryRef:1, })
+      res.status(200).json(ps5Games)
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 const getGame = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 20;
@@ -23,7 +35,7 @@ const getGame = async (req, res, next) => {
 
     const games = await Game.find({
       title: { $regex: searchTerm, $options: "i" },
-      "platforms.name": { $regex: platform, $options: "i" },
+      "platforms.name": { $regex: new RegExp(platform, "i") },
       "platforms.offer": hasOffer,
     })
       .sort({ [sort]: order })
@@ -33,16 +45,16 @@ const getGame = async (req, res, next) => {
         title: 1,
         dev: 1,
         genre: 1,
-        platforms: 1,
+        categoryRef:1,
+        releaseDate:1,
+        edition: 1,
+        description:1,
+        platforms: { $elemMatch: { name: { $regex: new RegExp(platform, "i") },offer: hasOffer} },
       });
 
-    games.forEach((game) => {
-      game.platforms = game.platforms.filter(
-        (platforms) => platforms.offer === hasOffer
-      );
-    });
+      const filteredGames = games.filter((game) => game.platforms.length > 0);
 
-    return res.status(200).json(games);
+    return res.status(200).json(filteredGames);
   } catch (error) {
     next(error);
   }
@@ -51,4 +63,5 @@ const getGame = async (req, res, next) => {
 module.exports = {
   addGame,
   getGame,
+  getps5games,
 };

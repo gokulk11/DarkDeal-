@@ -8,6 +8,7 @@ const gameSchema = new mongoose.Schema(
     edition: String,
     description: String,
     releaseDate: String,
+    categoryRef: String,
     platforms: [
       {
         name: String,
@@ -17,7 +18,7 @@ const gameSchema = new mongoose.Schema(
         imageUrls: Array,
       },
     ],
-    categoryRef: String,
+    
   },
   { timestamps: true }
 );

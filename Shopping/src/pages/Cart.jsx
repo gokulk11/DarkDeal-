@@ -13,29 +13,29 @@ import {
   Text,
   Divider,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { IoLogoWindows } from "react-icons/io";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import { current } from "@reduxjs/toolkit";
 
 const Cart = () => {
   const { currentCart, summaryPrice } = useSelector((state) => state.cart);
-  console.log(summaryPrice);
-  const cartGames = currentCart.map((game) => (
-    <CartItem
-      id={game.id}
-      title={game.title}
-      edition={game.edition}
-      offer={game.offer}
-      price={game.price}
-      platform={game.platform}
-      discountPrice={game.discountPrice}
-      count={game.count}
-      totalPrice={game.totalPrice}
-      image={game.image}
-    />
-  ));
+
+    const cartGames = currentCart.map((game) => (
+      <CartItem
+        id={game.id}
+        title={game.title}
+        edition={game.edition}
+        offer={game.offer}
+        price={game.price}
+        platform={game.platform}
+        discountPrice={game.discountPrice}
+        count={game.count}
+        totalPrice={game.totalPrice}
+        image={game.image}
+      />
+    ));
+
 
   return (
     <Container

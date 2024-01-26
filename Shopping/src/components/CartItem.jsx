@@ -11,13 +11,16 @@ import {
   IconButton,
   Input,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoLogoWindows } from "react-icons/io";
 import { SiPlaystation5, SiPlaystation4 } from "react-icons/si";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, decrementItem, incrementItem } from "../redux/cart/cartSlice";
-
+import {
+  removeFromCart,
+  decrementItem,
+  incrementItem,
+} from "../redux/cart/cartSlice";
 
 const CartItem = ({
   id,
@@ -32,11 +35,15 @@ const CartItem = ({
   totalPrice,
 }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) =>
-    state.cart.currentCart.find((item) => item.id === id)
-  );
 
- 
+
+    const cartItem = useSelector((state) =>
+      state.cart.currentCart.find((item) => item.id === id)
+    );
+    console.log(cartItem);
+
+
+  
 
   const handleRemoveCart = () => {
     dispatch(removeFromCart(id));
@@ -50,7 +57,6 @@ const CartItem = ({
     dispatch(decrementItem(id));
   };
 
-
   return (
     <Card w={"100%"} my={{ base: "10px" }}>
       <CardBody display={"flex"} gap={"1rem"}>
@@ -61,7 +67,7 @@ const CartItem = ({
           ) : platform === "PS5" ? (
             <SiPlaystation5 className="h-6 w-6" />
           ) : (
-            platform === "PS4"(<SiPlaystation4 className="h-6 w-6" />)
+            platform === "PS4" && <SiPlaystation4 className="h-6 w-6" />
           )}
         </Box>
         <Box height={"fit-content"}>

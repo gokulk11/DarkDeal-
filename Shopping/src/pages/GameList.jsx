@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Games from "../components/Games";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -30,56 +30,51 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import PopularGames from "../components/PopularGames";
-import { Form } from "react-router-dom";
+import { Form, useParams } from "react-router-dom";
 
 const GameList = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [listing, setListing] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { platform } = useParams();
+  const [error, setError] = useState(false);
+
+  console.log(listing);
+
+  useEffect(() => {
+    setListing([])//this will remove previous value from the list otherwise cart must getting bug
+    const fetchGame = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/game/get?platform=${platform}`);
+        const data = await res.json();
+        setListing(data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+
+    fetchGame();
+  }, [platform]);
 
   const handleFilterClick = () => {
     setIsFilterOpen(!isFilterOpen);
   };
 
-  const ps4Details = gamesData.data.games
-    .map((game) => {
-      const ps4Platform = game.platforms.find(
-        (platform) => platform.name === "PS5"
-      );
+  const games = listing.map((game) => {
+    return <Games 
+    id={game._id}
+    title={game.title}
+    platform={game.platforms[0].name}
+    price = {game.platforms[0].price}
+    offer={game.platforms[0].offer}
+    discountPrice={game.platforms[0].discountPrice}
+    image={game.platforms[0].imageUrls[0]}
+    edition={game.edition}
 
-      if (ps4Platform) {
-        const { name, price, discountPrice, offer, imageUrls } = ps4Platform;
-        return {
-          id: game.id,
-          title: game.title,
-          edition: game.edition,
-          platform: {
-            name,
-            price,
-            discountPrice,
-            offer,
-            imageUrls,
-          },
-        };
-      }
-
-      return null; // Return null if the game does not have a PlayStation platform
-    })
-    .filter((ps4Details) => ps4Details !== null);
-
-  console.log(ps4Details);
-
-  const psGames = ps4Details.map((game) => {
-    return (
-      <Games
-        id={game.id}
-        title={game.title}
-        edition={game.edition}
-        image={game.platform.imageUrls[0]}
-        price={game.platform.price}
-        offer={game.platform.offer}
-        platformName={game.platform.name}
-        discountPrice={game.platform.discountPrice}
-      />
-    );
+    />;
   });
 
   return (
@@ -169,7 +164,7 @@ const GameList = () => {
         columns={{ base: 2, sm: 3, md: 3, lg: 4 }}
         my="1rem"
         spacing={5}>
-        {psGames}
+        {games}
       </SimpleGrid>
 
       {/* Filter Option Starts */}

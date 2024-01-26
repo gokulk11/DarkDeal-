@@ -5,17 +5,18 @@ import { Link } from "react-router-dom";
 import { addItemToCart } from "../redux/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const Games = ({id, title, image, offer, price, discountPrice,platformName, edition}) => {
+const Games = ({id,title,platform,price,offer,edition,discountPrice,image}) => {
   const [gameData, setGameData] = useState({
-    id:id,
-    title: title,
-    image:image,
-    offer:offer,
-    price:price,
-    edition:edition,
-    discountPrice:discountPrice,
-    platform:platformName,
+      id: id,
+      title:title,
+      platform:platform,
+      price:price,
+      offer:offer,
+      edition:edition,
+      discountPrice:discountPrice,
+      image:image
   });
+
 
   const { itemCount, currentCart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -23,7 +24,6 @@ const Games = ({id, title, image, offer, price, discountPrice,platformName, edit
   const handleAddToCart = () => {
     dispatch(addItemToCart(gameData));
   };
-  console.log(itemCount, currentCart);
 
   return (
     <Link to="" className=" cursor-pointer">
@@ -70,14 +70,12 @@ const Games = ({id, title, image, offer, price, discountPrice,platformName, edit
               </div>
             )}
             <div className="flex flex-col items-end sm:flex-row sm:gap-2">
-              {offer && (
+             {offer && (
                 <p className=" line-through text-slate-500 font-semibold">
-                  &#8377;{price}
+                  &#8377;{discountPrice}
                 </p>
               )}
-              <p className="font-semibold text-slate-700">
-                &#8377;{discountPrice}
-              </p>
+              <p className="font-semibold text-slate-700">&#8377;{price}</p>
             </div>
           </div>
         </div>
